@@ -76,7 +76,7 @@ export default {
             const newUser = {
               id: user.uid,
               registeredMeetups: [],
-              fbKeys: {}
+              fbKeys: {},
             }
             commit('setUser', newUser)
           })
@@ -111,6 +111,29 @@ export default {
             console.log(error)
           }
         )
+    },
+    signUserInFaceBook({
+      commit
+    }) {
+      commit('setLoading', true)
+      commit('clearError')
+      let provider = new firebase.auth.FacebookAuthProvider()
+      firebase.auth().signInWithPopup(provider)
+        .then(function (result) {
+          let token = result.credential.accessToken
+          let user = result.user
+          commit('setUser', {
+            avatar: result.user.providerData[0].photoURL,
+            displayName: result.user.displayName
+          })
+          console.log(token)
+          console.log(user)
+          console.log(result.user.displayName)
+          console.log(result.user.uid)
+        }).catch(function (error) {
+          console.log(error.code)
+          console.log(error.message)
+        })
     },
     fetchUserData({
       commit,

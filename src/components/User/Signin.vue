@@ -9,6 +9,16 @@
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
           <v-card-text>
+            <v-layout row >
+              <v-flex >
+                <v-btn block color="#4267b2" dark @click="loginFaceBook">Log in with Facebook</v-btn>
+              </v-flex>
+            </v-layout>
+            <v-layout row >
+              <v-flex >
+                <div style="text-align: center;">Or</div>
+              </v-flex>
+            </v-layout>
             <v-container>
               <form @submit.prevent="onSignin">
                 <v-layout row>
@@ -53,40 +63,54 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        email: '',
-        password: ''
-      }
+export default {
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.user
     },
-    computed: {
-      user () {
-        return this.$store.getters.user
-      },
-      error () {
-        return this.$store.getters.error
-      },
-      loading () {
-        return this.$store.getters.loading
-      }
+    error () {
+      return this.$store.getters.error
     },
-    watch: {
-      user (value) {
-        if (value !== null && value !== undefined) {
-          this.$router.push('/')
-        }
-      }
-    },
-    methods: {
-      onSignin () {
-        this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
-      },
-      onDismissed () {
-        this.$store.dispatch('clearError')
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
+  watch: {
+    user (value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/')
       }
     }
+  },
+  methods: {
+    onSignin () {
+      this.$store.dispatch('signUserIn', { email: this.email, password: this.password })
+    },
+    onDismissed () {
+      this.$store.dispatch('clearError')
+    },
+    loginFaceBook () {
+      this.$store.dispatch('signUserInFaceBook')
+      // let provider = new firebase.auth.FacebookAuthProvider()
+      //   firebase.auth().signInWithPopup(provider)
+      //   .then(function (result) {
+      //     let token = result.credential.accessToken
+      //     let user = result.user
+      //     console.log(token)
+      //     console.log(user)
+      //   }).catch(function(error) {
+      //     console.log(error.code)
+      //     console.log(error.message)
+      //   })
+    }
   }
+}
 </script>
 <style>
   .custom-loader {

@@ -9,6 +9,7 @@ import AlertCmp from './components/Shared/Alert.vue'
 import EditMeetupDetailsDialog from './components/Meetup/Edit/EditMeetupDetailsDialog.vue'
 import EditMeetupDateDialog from './components/Meetup/Edit/EditMeetupDateDialog.vue'
 import RegisterDialog from './components/Meetup/Registration/RegisterDialog.vue'
+import ImageUploader from 'vue-image-upload-resize'
 
 Vue.config.productionTip = false
 
@@ -17,7 +18,7 @@ Vue.component('app-alert', AlertCmp)
 Vue.component('app-edit-meetup-details-dialog', EditMeetupDetailsDialog)
 Vue.component('app-edit-meetup-date-dialog', EditMeetupDateDialog)
 Vue.component('app-meetup-register-dialog', RegisterDialog)
-
+Vue.use(ImageUploader)
 
 new Vue({
   router,
@@ -25,11 +26,11 @@ new Vue({
   render: h => h(App),
   created () {
     firebase.initializeApp({
-        apiKey: 'AIzaSyCOBgpiRy-BhDisA8ppffCubHT8wn4YgAk',
-        authDomain: 'vuejs-f29e2.firebaseapp.com',
-        databaseURL: 'https://vuejs-f29e2.firebaseio.com',
-        projectId: 'vuejs-f29e2',
-        storageBucket: 'gs://vuejs-f29e2.appspot.com/',
+      apiKey: 'AIzaSyCOBgpiRy-BhDisA8ppffCubHT8wn4YgAk',
+      authDomain: 'vuejs-f29e2.firebaseapp.com',
+      databaseURL: 'https://vuejs-f29e2.firebaseio.com',
+      projectId: 'vuejs-f29e2',
+      storageBucket: 'gs://vuejs-f29e2.appspot.com/'
     })
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -40,4 +41,3 @@ new Vue({
     this.$store.dispatch('loadMeetups')
   }
 }).$mount('#app')
-

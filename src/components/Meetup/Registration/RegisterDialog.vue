@@ -37,28 +37,28 @@
 </template>
 
 <script>
-  export default {
-    props: ['meetupId'],
-    data () {
-      return {
-        registerDialog: false
-      }
-    },
-    computed: {
-      userIsRegistered () {
-        return this.$store.getters.user.registeredMeetups.findIndex(meetupId => {
-          return meetupId === this.meetupId
-        }) >= 0
-      }
-    },
-    methods: {
-      onAgree () {
-        if (this.userIsRegistered) {
-          this.$store.dispatch('unregisterUserFromMeetup', this.meetupId)
-        } else {
-          this.$store.dispatch('registerUserForMeetup', this.meetupId)
-        }
+export default {
+  props: ['meetupId'],
+  data () {
+    return {
+      registerDialog: false
+    }
+  },
+  computed: {
+    userIsRegistered () {
+      return this.$store.getters.user.registeredMeetups.findIndex(meetupId => {
+        return meetupId === this.meetupId
+      }) >= 0
+    }
+  },
+  methods: {
+    onAgree () {
+      if (this.userIsRegistered) {
+        this.$store.dispatch('unregisterUserFromMeetup', this.meetupId)
+      } else {
+        this.$store.dispatch('registerUserForMeetup', this.meetupId)
       }
     }
   }
+}
 </script>

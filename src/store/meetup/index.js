@@ -58,7 +58,7 @@ export default {
     loadMeetups ({
       commit
     }) {
-      commit ('setLoading', false)
+      commit('setLoading', false)
       firebase.database().ref('meetups').once('value')
         .then((data) => {
           const meetups = []

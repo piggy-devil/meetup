@@ -1,6 +1,6 @@
 <template>
   <v-dialog width="350px" persistent v-model="editDialog">
-    <v-btn accent slot="activator">
+    <v-btn accent slot="activator" class="primary">
       Edit Date
     </v-btn>
     <v-card>
@@ -20,11 +20,11 @@
                 locale="th-TH">
               <template scope="{save, cancel}">
                 <v-btn
-                  class="blue--text darken-1"
+                  class="primary--text darken-1"
                   flat
                   @click.native="editDialog = false">Close</v-btn>
                 <v-btn
-                  class="blue--text darken-1"
+                  class="primary--text darken-1"
                   flat
                   @click.native="onSaveChanges">Save</v-btn>
               </template>
@@ -37,39 +37,39 @@
 </template>
 
 <script>
-  export default {
-    props: ['meetup'],
-    data () {
-      return {
-        editDialog: false,
-        editableDate: null
-      }
-    },
-    methods: {
-      onSaveChanges () {
-        const newDate = new Date(this.meetup.date)
-        const newDay = new Date(this.editableDate).getUTCDate()
-        const newMonth = new Date(this.editableDate).getUTCMonth()
-        const newYear = new Date(this.editableDate).getUTCFullYear()
+export default {
+  props: ['meetup'],
+  data () {
+    return {
+      editDialog: false,
+      editableDate: null
+    }
+  },
+  methods: {
+    onSaveChanges () {
+      const newDate = new Date(this.meetup.date)
+      const newDay = new Date(this.editableDate).getUTCDate()
+      const newMonth = new Date(this.editableDate).getUTCMonth()
+      const newYear = new Date(this.editableDate).getUTCFullYear()
 
-        const hours = new Date().getHours()
-        const minutes = new Date().getMinutes()
+      const hours = new Date().getHours()
+      const minutes = new Date().getMinutes()
 
-        newDate.setUTCDate(newDay)
-        newDate.setUTCMonth(newMonth)
-        newDate.setUTCFullYear(newYear)
-        newDate.setHours(hours)
-        newDate.setMinutes(minutes)
-        this.$store.dispatch('updateMeetupData', {
-          id: this.meetup.id,
-          date: newDate
-        })
-      }
-    },
-    created () {
+      newDate.setUTCDate(newDay)
+      newDate.setUTCMonth(newMonth)
+      newDate.setUTCFullYear(newYear)
+      newDate.setHours(hours)
+      newDate.setMinutes(minutes)
+      this.$store.dispatch('updateMeetupData', {
+        id: this.meetup.id,
+        date: newDate
+      })
+    }
+  },
+  created () {
     //   this.editableDate = new Date(this.meetup.date)
     //   this.editableDate = new Date(this.event.date).toISOString().substr(0, 10)
-      this.editableDate = new Date(this.meetup.date).toISOString().substr(0,10)
-    }
+    this.editableDate = new Date(this.meetup.date).toISOString().substr(0, 10)
   }
+}
 </script>

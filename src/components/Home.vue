@@ -2,10 +2,10 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center text-sm-right">
-        <v-btn large to="/meetups" class="info">Explore Meetups</v-btn>
+        <v-btn large to="/meetups" class="primary">Explore Meetups</v-btn>
       </v-flex>
       <v-flex xs12 sm6 class="text-xs-center text-sm-left">
-        <v-btn large to="/meetup/new" class="info">Organize Meetup</v-btn>
+        <v-btn large to="/meetup/new" class="primary">Organize Meetup</v-btn>
       </v-flex>
     </v-layout>
     <v-layout>
@@ -42,21 +42,21 @@
 </template>
 
 <script>
-  export default {
-      computed: {
-        items () {
-          return this.$store.getters.featuredMeetups
-        },
-        loading () {
-          return this.$store.getters.loading
-        }
-      },
-      methods: {
-        onLoadMeetup (id) {
-          this.$router.push('/meetups/' + id)
-        }
-      }
+export default {
+  computed: {
+    items () {
+      return this.$store.getters.featuredMeetups
+    },
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
+  methods: {
+    onLoadMeetup (id) {
+      this.$router.push('/meetups/' + id)
+    }
   }
+}
 </script>
 
 <style scoped>
